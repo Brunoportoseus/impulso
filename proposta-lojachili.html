@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Proposta Comercial — Loja Chili</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f4f6f9;
+      color: #1e2535;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 40px 16px;
+    }
+
+    .page {
+      background: #ffffff;
+      max-width: 820px;
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 32px rgba(0,0,0,0.10);
+    }
+
+    /* ── Header ── */
+    .header {
+      background: linear-gradient(135deg, #0d1b2a 0%, #1a3050 100%);
+      padding: 40px 48px 36px;
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .logo-box {
+      width: 110px;
+      height: 80px;
+      border: 2px dashed rgba(255,255,255,0.35);
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: border-color .2s;
+      flex-shrink: 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .logo-box:hover { border-color: rgba(255,255,255,0.7); }
+    .logo-box img { width: 100%; height: 100%; object-fit: contain; display: none; }
+    .logo-box .upload-hint {
+      color: rgba(255,255,255,0.55);
+      font-size: 11px;
+      text-align: center;
+      line-height: 1.4;
+      pointer-events: none;
+    }
+    .logo-box .upload-hint span {
+      font-size: 22px;
+      display: block;
+      margin-bottom: 4px;
+    }
+    #logoInput { display: none; }
+
+    .header-text { flex: 1; }
+    .header-text .label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #e07b39;
+      margin-bottom: 6px;
+    }
+    .header-text h1 {
+      font-size: 26px;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.2;
+    }
+    .header-text h1 span { color: #e07b39; }
+    .header-text .subtitle {
+      margin-top: 6px;
+      font-size: 14px;
+      color: rgba(255,255,255,0.55);
+    }
+
+    .header-meta {
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .header-meta .date {
+      font-size: 12px;
+      color: rgba(255,255,255,0.45);
+    }
+    .header-meta .validity {
+      margin-top: 4px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.6);
+    }
+    .header-meta strong { color: #e07b39; }
+
+    /* ── Body ── */
+    .body { padding: 44px 48px; }
+
+    .section { margin-bottom: 36px; }
+
+    .section-title {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #e07b39;
+      margin-bottom: 14px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #edf0f5;
+    }
+
+    .intro-text {
+      font-size: 14.5px;
+      line-height: 1.75;
+      color: #3d4a5c;
+    }
+
+    /* ── Services ── */
+    .services-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .service-card {
+      background: #f8fafc;
+      border: 1px solid #e8edf4;
+      border-radius: 10px;
+      padding: 20px;
+    }
+    .service-card .icon { font-size: 22px; margin-bottom: 8px; }
+    .service-card h3 { font-size: 14px; font-weight: 600; color: #1e2535; margin-bottom: 6px; }
+    .service-card p { font-size: 13px; color: #5c6b80; line-height: 1.55; }
+
+    /* ── Pricing ── */
+    .pricing-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    .pricing-table thead th {
+      background: #f0f3f8;
+      padding: 10px 16px;
+      text-align: left;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #7a8898;
+      letter-spacing: .5px;
+    }
+    .pricing-table thead th:last-child { text-align: right; }
+    .pricing-table tbody td {
+      padding: 13px 16px;
+      border-bottom: 1px solid #f0f3f8;
+      color: #2e3d50;
+      vertical-align: top;
+    }
+    .pricing-table tbody td:last-child { text-align: right; font-weight: 500; white-space: nowrap; }
+    .pricing-table tbody tr:last-child td { border-bottom: none; }
+
+    .pricing-table .responsibility {
+      font-size: 11.5px;
+      color: #9aaab8;
+      margin-top: 2px;
+    }
+
+    .total-row {
+      background: #0d1b2a;
+      border-radius: 0 0 8px 8px;
+    }
+    .total-row td {
+      padding: 14px 16px !important;
+      color: #ffffff !important;
+      font-size: 15px;
+      font-weight: 600 !important;
+      border-bottom: none !important;
+    }
+    .total-row td:last-child { color: #e07b39 !important; font-size: 18px !important; }
+
+    .note-box {
+      margin-top: 12px;
+      background: #fff8f0;
+      border-left: 3px solid #e07b39;
+      padding: 12px 16px;
+      border-radius: 0 6px 6px 0;
+      font-size: 13px;
+      color: #7a5a3a;
+      line-height: 1.55;
+    }
+
+    /* ── Support ── */
+    .support-block {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      background: #f0f7ff;
+      border: 1px solid #c8dff7;
+      border-radius: 10px;
+      padding: 20px;
+    }
+    .support-block .badge {
+      background: #1a3050;
+      color: #ffffff;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+    .support-block h3 { font-size: 14px; font-weight: 600; color: #1a3050; margin-bottom: 4px; }
+    .support-block p { font-size: 13px; color: #4a6080; line-height: 1.6; }
+
+    /* ── Contacts ── */
+    .contacts-row {
+      display: flex;
+      gap: 16px;
+    }
+    .contact-card {
+      flex: 1;
+      background: #f8fafc;
+      border: 1px solid #e8edf4;
+      border-radius: 10px;
+      padding: 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .contact-card .avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #0d1b2a, #1a3050);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #e07b39;
+      font-weight: 700;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    .contact-card .info .name { font-size: 14px; font-weight: 600; color: #1e2535; }
+    .contact-card .info .email {
+      font-size: 12.5px;
+      color: #5c6b80;
+      margin-top: 2px;
+      word-break: break-all;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      background: #f0f3f8;
+      padding: 20px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #e2e8f0;
+    }
+    .footer .company { font-size: 13px; font-weight: 600; color: #1e2535; }
+    .footer .tagline { font-size: 12px; color: #8a97a8; margin-top: 2px; }
+    .footer .proposal-id { font-size: 11px; color: #9aaab8; }
+
+    /* ── Print ── */
+    @media print {
+      body { background: white; padding: 0; }
+      .page { box-shadow: none; border-radius: 0; }
+    }
+
+    @media (max-width: 600px) {
+      .header { flex-direction: column; align-items: flex-start; padding: 28px 24px; }
+      .header-meta { text-align: left; }
+      .body { padding: 28px 24px; }
+      .services-grid { grid-template-columns: 1fr; }
+      .contacts-row { flex-direction: column; }
+      .footer { flex-direction: column; gap: 8px; padding: 20px 24px; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ══════ HEADER ══════ -->
+  <div class="header">
+    <div class="logo-box" onclick="document.getElementById('logoInput').click()" title="Clique para fazer upload da logo">
+      <img id="logoImg" alt="Logo Impulso" />
+      <div class="upload-hint" id="uploadHint">
+        <span>⬆</span>Upload<br>da Logo
+      </div>
+    </div>
+    <input type="file" id="logoInput" accept="image/*" />
+
+    <div class="header-text">
+      <div class="label">Proposta Comercial</div>
+      <h1>Configuração de Domínio<br>& <span>E-mails Profissionais</span></h1>
+      <div class="subtitle">Para: <strong style="color:#fff">Loja Chili</strong> — lojachili.com.br</div>
+    </div>
+
+    <div class="header-meta">
+      <div class="date">Data: <strong style="color:#fff">11/06/2026</strong></div>
+      <div class="validity">Validade: <strong>30 dias</strong></div>
+    </div>
+  </div>
+
+  <!-- ══════ BODY ══════ -->
+  <div class="body">
+
+    <!-- Apresentação -->
+    <div class="section">
+      <div class="section-title">Apresentação</div>
+      <p class="intro-text">
+        A <strong>Impulso</strong> tem o prazer de apresentar esta proposta à <strong>Loja Chili</strong> para a
+        configuração profissional de domínio e contas de e-mail corporativas. Nosso objetivo é garantir
+        que a empresa tenha uma identidade digital sólida e comunicação segura desde o primeiro dia,
+        com suporte dedicado durante todo o processo de implantação.
+      </p>
+    </div>
+
+    <!-- Serviços -->
+    <div class="section">
+      <div class="section-title">Escopo dos Serviços</div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="icon">🌐</div>
+          <h3>Configuração de Domínio</h3>
+          <p>Registro e configuração completa do domínio, ajuste de DNS, redirecionamentos e apontamentos para os serviços contratados.</p>
+        </div>
+        <div class="service-card">
+          <div class="icon">📧</div>
+          <h3>E-mails Profissionais</h3>
+          <p>Configuração das contas de e-mail corporativas com seu domínio, setup em clientes de e-mail (desktop e mobile) e testes de envio/recebimento.</p>
+        </div>
+        <div class="service-card">
+          <div class="icon">🔒</div>
+          <h3>Segurança & Autenticação</h3>
+          <p>Configuração de SPF, DKIM e DMARC para evitar que os e-mails da empresa caiam em spam e proteger a reputação do domínio.</p>
+        </div>
+        <div class="service-card">
+          <div class="icon">📋</div>
+          <h3>Documentação & Handover</h3>
+          <p>Entrega de guia com credenciais, configurações realizadas e orientações para uso diário das ferramentas implantadas.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Investimento -->
+    <div class="section">
+      <div class="section-title">Investimento</div>
+      <table class="pricing-table">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Período</th>
+            <th>Responsabilidade</th>
+            <th>Valor</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              Registro de Domínio (.com.br)
+              <div class="responsibility">Pago pelo cliente diretamente ao registrador</div>
+            </td>
+            <td>2 anos</td>
+            <td>Cliente</td>
+            <td>R$ 76,00</td>
+          </tr>
+          <tr>
+            <td>
+              Hospedagem de E-mails Profissionais
+              <div class="responsibility">Pago pelo cliente ao provedor de e-mail</div>
+            </td>
+            <td>1 ano</td>
+            <td>Cliente</td>
+            <td>~R$ 120,00</td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Serviço de Configuração — Impulso</strong>
+              <div class="responsibility">Configuração completa + suporte de 3 meses</div>
+            </td>
+            <td>Único</td>
+            <td><strong>Impulso</strong></td>
+            <td><strong>R$ 450,00</strong></td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr class="total-row">
+            <td colspan="3">💰 Investimento Total do Projeto</td>
+            <td>R$ 646,00</td>
+          </tr>
+        </tfoot>
+      </table>
+
+      <div class="note-box">
+        ⚠️ <strong>Importante:</strong> Os custos de domínio (R$ 76,00 / 2 anos) e hospedagem de e-mails (~R$ 120,00 / ano)
+        são pagos pelo cliente diretamente aos respectivos provedores. A Impulso não faz nenhuma cobrança adicional sobre esses itens.
+        O valor de <strong>R$ 450,00</strong> refere-se exclusivamente à prestação de serviço de configuração.
+      </div>
+    </div>
+
+    <!-- Suporte -->
+    <div class="section">
+      <div class="section-title">Suporte Incluso</div>
+      <div class="support-block">
+        <div class="badge">🛡</div>
+        <div>
+          <h3>3 meses de suporte após a entrega</h3>
+          <p>
+            Após a conclusão da implantação, a Impulso oferece <strong>3 meses de suporte técnico</strong> para
+            dúvidas, ajustes de configuração e orientação aos usuários da Loja Chili. O atendimento é realizado
+            via e-mail, com retorno em até 1 dia útil.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contatos -->
+    <div class="section">
+      <div class="section-title">Nossos Contatos</div>
+      <div class="contacts-row">
+        <div class="contact-card">
+          <div class="avatar">B</div>
+          <div class="info">
+            <div class="name">Bruno Porto</div>
+            <div class="email">bpseus@gmail.com</div>
+          </div>
+        </div>
+        <div class="contact-card">
+          <div class="avatar">O</div>
+          <div class="info">
+            <div class="name">Osni Feiges</div>
+            <div class="email">feiges@gmail.com</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /body -->
+
+  <!-- ══════ FOOTER ══════ -->
+  <div class="footer">
+    <div>
+      <div class="company">Impulso</div>
+      <div class="tagline">Soluções digitais para o seu negócio</div>
+    </div>
+    <div class="proposal-id">Proposta #IMP-2026-001 · Válida por 30 dias</div>
+  </div>
+
+</div><!-- /page -->
+
+<script>
+  const input = document.getElementById('logoInput');
+  const img   = document.getElementById('logoImg');
+  const hint  = document.getElementById('uploadHint');
+
+  input.addEventListener('change', function () {
+    const file = this.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+      img.src = e.target.result;
+      img.style.display = 'block';
+      hint.style.display = 'none';
+    };
+    reader.readAsDataURL(file);
+  });
+</script>
+</body>
+</html>
